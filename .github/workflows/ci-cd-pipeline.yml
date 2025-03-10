@@ -1,22 +1,8 @@
-name: CI/CD Pipeline
-
-on:
-  push:
-    branches:
-      - main
-
+name: hello-world
+'on' : push
 jobs:
-  build-and-deploy:
-    runs-on: ubuntu-latest
-    steps:
-      - name: Checkout code
-        uses: actions/checkout@v2
-
-      - name: Install dependencies
-        run: npm install
-
-      - name: Run tests
-        run: npm test
-
-      - name: Deploy to production
-        uses: deploy-to-production-action@v1
+  my-jobs:
+      runs-on: ubuntu-latest
+      steps:
+        - name: my-step
+          run: echo "Hello world!"
