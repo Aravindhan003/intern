@@ -1,4 +1,4 @@
-name: Python CI
+name: Python Package
 
 on:
   push:
@@ -6,31 +6,21 @@ on:
       - main
 
 jobs:
-  build-and-deploy:
+  build-and-test:
     runs-on: ubuntu-latest
     steps:
       - name: Checkout code
         uses: actions/checkout@v2
 
+      - name: Set up Python
+        uses: actions/setup-python@v2
+        with:
+          python-version: '3.9'
+
       - name: Install dependencies
         run: |
-          python -m venv venv
-          source venv/bin/activate
-          pip install -r requirements.txt
+          python -m pip install --upgrade pip
 
       - name: Run tests
         run: |
-          source venv/bin/activate
-          pytest
-
-      - name: Deploy to production
-        uses: appleboy/ssh-action@v2
-        with:
-           host: ${{ secrets.HOST }}
-           username: ${{ secrets.USERNAME }}
-           password: ${{ secrets.PASSWORD }}
-           script: |
-                cd /var/www/html
-                 git pull origin main
-                pip install -r requirements.txt
-                systemctl restart app
+          python main.py
