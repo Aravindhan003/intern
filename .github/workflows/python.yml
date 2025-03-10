@@ -24,13 +24,13 @@ jobs:
           pytest
 
       - name: Deploy to production
-        uses: appleboy/ssh-action@v1
+        uses: appleboy/ssh-action@v2
         with:
-          host: ${{ secrets.HOST }}
-          username: ${{ secrets.USERNAME }}
-          password: ${{ secrets.PASSWORD }}
-          script: |
-            cd /var/www/html
-            git pull origin main
-            pip install -r requirements.txt
-            systemctl restart app
+           host: ${{ secrets.HOST }}
+           username: ${{ secrets.USERNAME }}
+           password: ${{ secrets.PASSWORD }}
+           script: |
+                cd /var/www/html
+                 git pull origin main
+                pip install -r requirements.txt
+                systemctl restart app
